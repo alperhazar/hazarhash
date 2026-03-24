@@ -34,10 +34,13 @@ begin
   FKeyLength := KeyLength;
   for I := S to E do
     FSBox[I] := I xor FKeyLength;
-  GenerateBox(FSBox);
-  FMBox := FSBox;
-  GenerateBox(FMBox);
-  GenerateKey;
+  for I := S to $02 do
+  begin
+    GenerateBox(FSBox);
+    FMBox := FSBox;
+    GenerateBox(FMBox);
+    GenerateKey;
+  end;
 end;
 
 procedure THazarEncryption.GenerateBox(var Box: THazarData);
